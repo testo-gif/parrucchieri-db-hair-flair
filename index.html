@@ -9,19 +9,19 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--purple:#c084fc;--dark:#1a1a1a;--light:#faf9f7}
+:root{--purple:#c084fc;--dark:#1a1a1a;--light:#faf9f7;--call-green:#1a5c2a;--wa-green:#25D366}
 body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark)}
 h1,h2,h3,h4{font-family:'Cormorant Garamond',serif}
 #buy-banner{position:fixed;top:0;left:0;width:100%;background:#000;color:#fff;z-index:9999;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-#buy-banner p{font-size:14px;line-height:1.3}
-#buy-banner a{background:#ff4d00;color:#fff;text-decoration:none;padding:8px 18px;border-radius:4px;font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
+#buy-banner p{font-size:14px}
+#buy-banner a.stripe{background:#ff4d00;color:#fff;text-decoration:none;padding:8px 18px;border-radius:4px;font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
 @media(max-width:600px){#buy-banner .dt{display:none}}
 @media(min-width:601px){#buy-banner .mob{display:none}}
-.hero{height:100vh;background:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1920&q=80') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:44px}
-.hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.45)}
+.hero{height:100vh;background:url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=1920&photoreference=Ab43m-scqKh1mw0ZZWxTSa_WRQXaryrC4Qnm-oc_YS-uRQDyhhVaS2nN_IJmVaH6ZuYbTzFLER4TH117jslkNDlSDNZpquVXhhjWMrpuOEhhzfWKtnYcpRBvSUYCUWsu_B1HhWlVbdpc3U0ILDU-jf96oiaY93OSV-UA11XLOz-GjjLANmaZZ51VQF-_C8cuLznNjxEtjt7XugMH0nPXfsoj8RjnHA4a0ywANinxtSDgXvUzx1MpX0LdFfwVtfqqkRNnKQJEymj5waW0QM78yUoafVEsQp_2MPfRsJ2SAc6w8Rk&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:44px}
+.hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.48)}
 .hero-c{position:relative;z-index:1;color:#fff;padding:0 20px}
 .hero-c h1{font-size:clamp(2.2rem,6vw,5rem);font-weight:300;letter-spacing:.04em}
-.hero-c p{font-size:1.05rem;margin-top:10px;opacity:.9;font-weight:300}
+.hero-c p{font-size:1.05rem;margin-top:10px;opacity:.9}
 .hero-c .stars{margin-top:14px;font-size:1.1rem;color:#ffd700}
 .hero-c a.cta{display:inline-block;margin-top:24px;padding:13px 34px;background:var(--purple);color:#fff;text-decoration:none;border-radius:2px;font-size:.95rem;letter-spacing:.06em}
 .numeri{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:3px solid var(--purple)}
@@ -49,14 +49,26 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif}
 .gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
 @media(max-width:600px){.gallery{grid-template-columns:repeat(2,1fr)}}
 .gallery img{width:100%;height:200px;object-fit:cover}
-.testi{background:var(--purple);padding:72px 5%;color:#fff}
-.testi .sec-t{color:#fff}
-.testi .sec-s{color:rgba(255,255,255,.8)}
-.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1000px;margin:0 auto}
-.tc{background:rgba(255,255,255,.12);padding:26px;border-radius:3px}
-.tc p{font-style:italic;line-height:1.7;margin-bottom:14px;font-family:'Cormorant Garamond',serif;font-size:1.05rem}
-.tc .name{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
-.tc .stars{color:#ffd700;margin-bottom:8px}
+.recensioni{background:var(--light);padding:72px 5%}
+.rec-inner{max-width:1100px;margin:0 auto}
+.rec-top{display:flex;align-items:flex-start;gap:40px;margin-bottom:40px;flex-wrap:wrap}
+.rec-score .big-num{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;line-height:1;color:var(--dark)}
+.rec-score .big-stars{font-size:1.4rem;color:#f59e0b;margin:4px 0}
+.rec-score .rec-count{font-size:.85rem;color:#666}
+.rec-divider{width:1px;background:#ddd;height:80px;margin:0 20px;align-self:center}
+.rec-title h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;line-height:1.2}
+.rec-track{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:700px){.rec-track{grid-template-columns:1fr}}
+.rev-card{background:#fff;border:1px solid #e8e8e8;border-radius:8px;padding:24px;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.rev-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rev-meta .rev-name{font-weight:600;font-size:.95rem}
+.rev-meta .rev-when{font-size:.8rem;color:#888;margin-top:2px}
+.rev-stars{font-size:1rem;color:#f59e0b;margin-bottom:10px}
+.rev-text{font-size:.9rem;line-height:1.65;color:#444;font-style:italic}
+.rev-g{position:absolute;bottom:16px;right:16px}
+.rec-nav{display:flex;gap:10px;margin-top:24px}
+.rec-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid #ccc;background:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+.rec-nav button:hover{border-color:var(--purple)}
 .orari{background:#fff;padding:72px 5%}
 .orari table{width:100%;max-width:560px;border-collapse:collapse;margin:28px auto 0}
 .orari td{padding:13px 0;border-bottom:1px solid #eee;font-size:.92rem}
@@ -75,7 +87,12 @@ details p{color:#555;line-height:1.7;margin-top:12px;font-size:.92rem}
 .contatti a{color:var(--purple);text-decoration:none}
 footer{background:#111;color:#666;text-align:center;padding:22px;font-size:.78rem}
 footer a{color:#888;cursor:pointer}
-.wa{position:fixed;bottom:22px;right:22px;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:24px;box-shadow:0 4px 16px rgba(37,211,102,.4);z-index:8888}
+/* STICKY BUTTONS */
+.sticky-btn{position:fixed;bottom:22px;right:22px;width:auto;min-width:54px;height:54px;border-radius:28px;display:flex;align-items:center;gap:8px;padding:0 18px 0 14px;text-decoration:none;font-size:14px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:8888;color:#fff;transition:transform .2s}
+.sticky-btn:hover{transform:scale(1.05)}
+.sticky-btn span{white-space:nowrap}
+.sticky-call{background:var(--call-green)}
+.sticky-wa{background:var(--wa-green)}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;align-items:center;justify-content:center}
 .modal.open{display:flex}
 .modal-box{background:#fff;padding:36px;max-width:580px;width:90%;max-height:80vh;overflow-y:auto;border-radius:3px}
@@ -88,18 +105,18 @@ footer a{color:#888;cursor:pointer}
 <div id="buy-banner">
   <p class="dt">Ti piace questo sito? Il tuo potrebbe essere identico — online in 5 giorni per €99</p>
   <p class="mob">Vuoi un sito così? €99</p>
-  <a href="https://buy.stripe.com/8x25kC7mo39M0bN1Mv1B601" target="_blank">Inizia ora →</a>
+  <a href="https://buy.stripe.com/8x25kC7mo39M0bN1Mv1B601" target="_blank" class="stripe">Inizia ora →</a>
 </div>
 <section class="hero">
   <div class="hero-c">
     <h1>Parrucchieri DB Hair Flair</h1>
-    <p>Galleria Cavour, 3f · Bologna</p>
-    <div class="stars">★★★★ 4.4 · 22 recensioni</div>
-    <a href="https://wa.me/390510391939" class="cta" target="_blank">Prenota su WhatsApp</a>
+    <p>Galleria Cavour 3f piano ammezzato, 40124 Bologna BO · Bologna</p>
+    <div class="stars">★★★★½ 4.7 · 22 recensioni Google</div>
+    <a href="tel:+39 051 039 1939" class="cta">📞 Chiama ora</a>
   </div>
 </section>
 <div class="numeri">
-  <div class="num"><span>4.4</span><p>Rating Google</p></div>
+  <div class="num"><span>4.7</span><p>Rating Google</p></div>
   <div class="num"><span>22</span><p>Recensioni</p></div>
   <div class="num"><span>15+</span><p>Anni esperienza</p></div>
   <div class="num"><span>Bologna</span><p>Città</p></div>
@@ -119,9 +136,9 @@ footer a{color:#888;cursor:pointer}
 <section class="about">
   <div class="about-in">
     <div class="about-imgs">
-      <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80" alt="Salone">
-      <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Team">
-      <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&q=80" alt="Prodotti">
+      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-scqKh1mw0ZZWxTSa_WRQXaryrC4Qnm-oc_YS-uRQDyhhVaS2nN_IJmVaH6ZuYbTzFLER4TH117jslkNDlSDNZpquVXhhjWMrpuOEhhzfWKtnYcpRBvSUYCUWsu_B1HhWlVbdpc3U0ILDU-jf96oiaY93OSV-UA11XLOz-GjjLANmaZZ51VQF-_C8cuLznNjxEtjt7XugMH0nPXfsoj8RjnHA4a0ywANinxtSDgXvUzx1MpX0LdFfwVtfqqkRNnKQJEymj5waW0QM78yUoafVEsQp_2MPfRsJ2SAc6w8Rk&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Salone" loading="lazy">
+      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-uPiNkAY69dUD5cRakWaIshwwo4NIxPcfpKQNBKmYDWTHxkihheH9lqQ4jfXQbUmuVYBGih_hfAyZaM3kXL_pHBZT3TRSZYsOIU_KapKZRgYTcY38uwvgQzbbJZELP_6mC2w8nxCeZOpZ4rYgF1xAS_HjySNaVN7K7X_EG9tv7Cd6iPyDlKF95dYU6DxKC0Vln5ZbKoNplGREaDZL7gscmbS9z2jqhyg_g6hiaeq3QQ_mq57b-Zpt-xDE37KJnOCuhfXZw6NyI5vFzoykNsJFWnf1OREDa8DVvcosPEjlJFez6D3OYWOOQ83Q-5gZPiKcic19l8shzQ3BqDlh-0dv-ZghLMBB9Oyo26w6Aqn80dCV0LHLLxgwgF1tlLZjxZYGLZFlcBJOl1sx3myxFPTUxmuFOANO8WJfX2qPhwz2dp9gy_&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Team" loading="lazy">
+      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-suz94pImMhMJqVbaHuVPOLMRQJoThItyiC_g5L1rEe_7QLYc0qBm6q4ljvKpOmXQ5_705Xh4Kpf3apzVIRp0nOpoXzsUtapHuTVBibOkKcRMVaIFjA8l90R6e3q4VOkwQXB_8J09GAcZN_J9ayYYtMa6tifZCBV_lHKkjzKNyG_LvV1TdtB7yKpf3GMb5V6Imxm6uCnmcr7h5vZ-JBDTugJrnkjFAtZ2-a0GTqq8eQS0mt0SIZuYTao7YnJ4ZYmIFvOZsZ9T11Ui083Zq1kspbjUIo-4YXZFXcW1GxNBu7dWVOJdr4iqD4969jM_L9lgd09T_FR1PzQIwFYdlIEQhP416kaUGtHYLUTSChE5CWbTroXyJlZt7J9gMYVyJfIdmYLh_yHq1jCRtEWmAYJFKyW2otom8ya4sgIESR8FrXpA&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Lavoro" loading="lazy">
     </div>
     <div class="about-t">
       <h2>Chi Siamo</h2>
@@ -131,22 +148,67 @@ footer a{color:#888;cursor:pointer}
     </div>
   </div>
 </section>
-<div class="gallery">
-  <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80" alt="">
-  <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="">
-  <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&q=80" alt="">
-  <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=80" alt="">
-  <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=80" alt="">
+<div class="gallery"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-uPiNkAY69dUD5cRakWaIshwwo4NIxPcfpKQNBKmYDWTHxkihheH9lqQ4jfXQbUmuVYBGih_hfAyZaM3kXL_pHBZT3TRSZYsOIU_KapKZRgYTcY38uwvgQzbbJZELP_6mC2w8nxCeZOpZ4rYgF1xAS_HjySNaVN7K7X_EG9tv7Cd6iPyDlKF95dYU6DxKC0Vln5ZbKoNplGREaDZL7gscmbS9z2jqhyg_g6hiaeq3QQ_mq57b-Zpt-xDE37KJnOCuhfXZw6NyI5vFzoykNsJFWnf1OREDa8DVvcosPEjlJFez6D3OYWOOQ83Q-5gZPiKcic19l8shzQ3BqDlh-0dv-ZghLMBB9Oyo26w6Aqn80dCV0LHLLxgwgF1tlLZjxZYGLZFlcBJOl1sx3myxFPTUxmuFOANO8WJfX2qPhwz2dp9gy_&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-suz94pImMhMJqVbaHuVPOLMRQJoThItyiC_g5L1rEe_7QLYc0qBm6q4ljvKpOmXQ5_705Xh4Kpf3apzVIRp0nOpoXzsUtapHuTVBibOkKcRMVaIFjA8l90R6e3q4VOkwQXB_8J09GAcZN_J9ayYYtMa6tifZCBV_lHKkjzKNyG_LvV1TdtB7yKpf3GMb5V6Imxm6uCnmcr7h5vZ-JBDTugJrnkjFAtZ2-a0GTqq8eQS0mt0SIZuYTao7YnJ4ZYmIFvOZsZ9T11Ui083Zq1kspbjUIo-4YXZFXcW1GxNBu7dWVOJdr4iqD4969jM_L9lgd09T_FR1PzQIwFYdlIEQhP416kaUGtHYLUTSChE5CWbTroXyJlZt7J9gMYVyJfIdmYLh_yHq1jCRtEWmAYJFKyW2otom8ya4sgIESR8FrXpA&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-t2oCMTOyyTRS-nuurFwfXyG7CRsgVmTQAwcvjfGreSoLUWTl_SIz1Bjzza1hDmnL4RXDC6hytBirgB3yZZ2wLLjHMek5uXHLn-v8Gjg4TJFggc1Rx-rYbIwOPTqg2bCxNER-sVK-AOiCAqxaBTd5FT5Yw0v52YgfXUS6wYLDB4R0kjprzQEMZXBKgbPUCj0jI947_BFMU1630J2m9igaGTdLgq3hud-BeeYZ2ZSDVtr2EjzqJxBYBcz_EiHPgitLqY1b74bH61m0K6Q20UHVGT8wiMwbwsWFVI_zTGFViK23DNcG4c5cdlaQNoSPZQCp7AQqvSeZ8JDFOS0RkCBO-LtwnTm79vHmvZ48U4U1PCWsNYEMgY9Tnrl6WnlM6nNnfpPBMOmFDDezlY4fpEs_b9IYV3Ubqw7iJV8mblhVU&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-uIQ1XAmu12L2TNJdv-OZo3vHumbuOhmfQTvMw1D0qaXSBuEgr_Irm46WohSLS1XCwlWQdTn6SWtVvw8iFttT8oE_WOdCmth6zm1z4UeAK2YrU0yctA88NmZyIkgb8UomvZCTlyfiWEGbSwLfbpnk7KUQxLX7TrreIYADUC2WT6Lwvp980Ca0PLi1V88yeIZSeZ8fOFXUPwtkxK0Is90XtVDfNDJf5ApUzzAIDk4gIM1SM1adLg1LWH9QmZwbCkUh-jiFsjvF1jYnHv7VWve1jSonMuSIf_7LddvlFnwAg&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"></div>
+<section class="recensioni">
+  <div class="rec-inner">
+    <div class="rec-top">
+      <div class="rec-score">
+        <div class="big-num">4.7</div>
+        <div class="big-stars">★★★★☆</div>
+        <div class="rec-count">22 recensioni Google</div>
+      </div>
+      <div class="rec-divider"></div>
+      <div class="rec-title"><h2>Cosa dicono<br>i nostri clienti</h2></div>
+    </div>
+    <div class="rec-track" id="rec-track"><div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a/ACg8ocIVBaKZ3Om2Api1i_rhqdzJQexBFLiPM51jDQhlJnqsjDwjag=s128-c0x00000000-cc-rp-mo" alt="PC" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">paola caressa</div><div class="rev-when">1 anno fa</div></div></div>
+  <div class="rev-stars">★★★★★</div>
+  <p class="rev-text">"Fabio un grande hair styler, ha riprodotto perfettamente la mia richiesta, veloce dinamico e tanto empatico! Professionalità ma anche tanta voglia , innata, di farti sentire a casa! Grazie Fabioooo
+Sono stracontenta del risultato ."</p>
+  <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
 </div>
-<section class="testi">
-  <h2 class="sec-t">Cosa Dicono di Noi</h2>
-  <p class="sec-s">Le recensioni dei nostri clienti soddisfatti</p>
-  <div class="tg">
-    <div class="tc"><div class="stars">★★★★★</div><p>"Finalmente ho trovato il mio salone di fiducia! Professionalità e gentilezza, risultati sempre perfetti."</p><div class="name">— Giulia M.</div></div>
-    <div class="tc"><div class="stars">★★★★★</div><p>"Ho fatto il colore qui per la prima volta e sono rimasta stupita. Capelli brillanti e sani."</p><div class="name">— Laura P.</div></div>
-    <div class="tc"><div class="stars">★★★★☆</div><p>"Ambiente accogliente e rilassante. Mi hanno consigliato il taglio perfetto per la mia forma del viso."</p><div class="name">— Martina F.</div></div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a/ACg8ocJce64e30ueXWsWiLUltb82IvHboMyW86DB1aXjh6ClKl9EoQ=s128-c0x00000000-cc-rp-mo" alt="AD" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Antonia Damijanidis</div><div class="rev-when">2 anni fa</div></div></div>
+  <div class="rev-stars">★★★★★</div>
+  <p class="rev-text">"My favorite salon for almost 14 years!! In particular Fabio; he is very professional and good. He uses excellent quality products, has excellent manual skills. I am always very satisfied when i go there :)
+
+Il mio salone preferito da quasi 14 anni!! In particolare Fabio; è molto professionale e brav"</p>
+  <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a-/ALV-UjXpbn31_Tcz3H8h8I1EoJkPMc6zunc1_8hHbG0nIjXpcjcg908=s128-c0x00000000-cc-rp-mo" alt="MC" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Mariagiovanna Cioppa</div><div class="rev-when">2 anni fa</div></div></div>
+  <div class="rev-stars">★★★★★</div>
+  <p class="rev-text">"Gentilezza e professionalità garantite! Fabio e Italia sono eccezionali: sono  riusciti a schiarire il mio colore naturale senza lasciare neanche un piccolissimo riflesso rosso! Anche il taglio è super!
+Dopo tana ricerca, ho trovato parrucchieri che offrono un servizio a 360 gradi!"</p>
+  <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a-/ALV-UjWVTTADHRH38Vk7_CFdoLlLQ1NKep9FYlM5a8ERirEwFoWwWW8P=s128-c0x00000000-cc-rp-mo-ba2" alt="FM" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Federica Maggio</div><div class="rev-when">10 mesi fa</div></div></div>
+  <div class="rev-stars">★☆☆☆☆</div>
+  <p class="rev-text">"Pessimi!!!! Ho messo una stella ma ne meriterebbe 0.
+Il ragazzo che doveva farmi il lavoro, è inaffidabile, mi sono rivolta a lui dopo aver visto il suo profilo instangram. Convinta di voler cambiare colore sono andata personalmente quest’inverno a prendere appuntamento, mi fissa per giorno X ore 10"</p>
+  <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a/ACg8ocIEkOAzPHJBm6CsH0JRAZc_1yF2bQuHaIsYH3_0JcQHEKMOIQ=s128-c0x00000000-cc-rp-mo" alt="LG" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Lisa Goldoni</div><div class="rev-when">1 anno fa</div></div></div>
+  <div class="rev-stars">★★★★★</div>
+  <p class="rev-text">"I parrucchieri della DB Hair Flair sono bravissimi. Recentemente mi hanno messo una maschera e un prodotto che mi ha reso i capelli morbidissimi e lucidi senza bisogno di colorarli tranne che nella ricrescita. Grazie 🤩"</p>
+  <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
+</div>
+</div>
+    <div class="rec-nav">
+      <button onclick="slide(-1)">←</button>
+      <button onclick="slide(1)">→</button>
+    </div>
   </div>
 </section>
+<script>
+var cards=document.querySelectorAll('.rev-card'),idx=0,pp=window.innerWidth<700?1:2;
+function show(){cards.forEach(function(c,i){c.style.display=(i>=idx&&i<idx+pp)?'block':'none'})}
+function slide(d){idx=Math.max(0,Math.min(idx+d,cards.length-pp));show()}
+show();
+window.addEventListener('resize',function(){pp=window.innerWidth<700?1:2;show()});
+</script>
 <section class="orari">
   <h2 class="sec-t">Orari di Apertura</h2>
   <table>
@@ -162,36 +224,38 @@ footer a{color:#888;cursor:pointer}
 <section class="faq">
   <div class="faq-in">
     <h2 class="sec-t">Domande Frequenti</h2>
-    <details><summary>Devo prenotare in anticipo?</summary><p>Consigliamo sempre di prenotare per garantire la disponibilità. Accettiamo anche clienti senza appuntamento quando possibile.</p></details>
-    <details><summary>Quanto dura un trattamento colore?</summary><p>Un colore completo richiede in media 2-3 ore. Per meches o balayage, prevedere 3-4 ore.</p></details>
-    <details><summary>Usate prodotti senza ammoniaca?</summary><p>Sì, offriamo sia colorazioni tradizionali che alternative senza ammoniaca per capelli sensibili.</p></details>
-    <details><summary>Fate acconciature per matrimoni?</summary><p>Assolutamente sì! Offriamo un servizio completo per sposa con prova acconciatura inclusa.</p></details>
-    <details><summary>Quali metodi di pagamento accettate?</summary><p>Accettiamo contanti, carte di credito/debito e pagamenti digitali (Apple Pay, Google Pay).</p></details>
+    <details><summary>Devo prenotare in anticipo?</summary><p>Consigliamo sempre di prenotare. Accettiamo anche senza appuntamento quando possibile.</p></details>
+    <details><summary>Quanto dura un trattamento colore?</summary><p>Un colore completo richiede 2-3 ore. Per meches o balayage, 3-4 ore.</p></details>
+    <details><summary>Usate prodotti senza ammoniaca?</summary><p>Sì, offriamo colorazioni tradizionali e alternative senza ammoniaca.</p></details>
+    <details><summary>Fate acconciature per matrimoni?</summary><p>Sì! Servizio completo per sposa con prova inclusa.</p></details>
+    <details><summary>Quali metodi di pagamento accettate?</summary><p>Contanti, carte e pagamenti digitali (Apple Pay, Google Pay).</p></details>
   </div>
 </section>
 <div id="map"></div>
 <script>
 var map=L.map('map').setView([44.4922976,11.3440384],15);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-L.marker([44.4922976,11.3440384]).addTo(map).bindPopup('<b>Parrucchieri DB Hair Flair</b><br>Galleria Cavour, 3f').openPopup();
+L.marker([44.4922976,11.3440384]).addTo(map).bindPopup('<b>Parrucchieri DB Hair Flair</b><br>Galleria Cavour 3f piano ammezzato, 40124 Bologna BO').openPopup();
 </script>
 <section class="contatti">
   <h2>Contattaci</h2>
-  <p style="margin-top:14px">Galleria Cavour, 3f, 40124 Bologna</p>
-  <p><a href="tel:+39 051 039 1939">+39 051 039 1939</a></p>
-  <p style="margin-top:18px"><a href="https://wa.me/390510391939" target="_blank" style="background:var(--purple);color:#fff;padding:11px 26px;border-radius:2px;text-decoration:none;display:inline-block">Scrivici su WhatsApp</a></p>
+  <p style="margin-top:14px">Galleria Cavour 3f piano ammezzato, 40124 Bologna BO, 40124 Bologna</p>
+  <p><a href="tel:+39 051 039 1939" style="color:var(--purple)">+39 051 039 1939</a></p>
 </section>
 <footer>
-  <p>© 2025 Parrucchieri DB Hair Flair · Galleria Cavour, 3f, 40124 Bologna · <a onclick="document.getElementById('pm').classList.add('open')">Privacy Policy</a></p>
+  <p>© 2025 Parrucchieri DB Hair Flair · Galleria Cavour 3f piano ammezzato, 40124 Bologna BO, 40124 Bologna · <a onclick="document.getElementById('pm').classList.add('open')">Privacy Policy</a></p>
 </footer>
 <div id="pm" class="modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-box">
     <button class="modal-close" onclick="document.getElementById('pm').classList.remove('open')">Chiudi</button>
     <h3>Privacy Policy</h3>
-    <p>Il presente sito non raccoglie dati personali, non usa cookie di profilazione e non effettua tracking analytics.</p>
-    <p>Titolare: Parrucchieri DB Hair Flair, Galleria Cavour, 3f, 40124 Bologna. Contatto: <a href="tel:+39 051 039 1939">+39 051 039 1939</a>.</p>
+    <p>Questo sito non raccoglie dati personali, non usa cookie di profilazione e non effettua tracking.</p>
+    <p>Titolare: Parrucchieri DB Hair Flair, Galleria Cavour 3f piano ammezzato, 40124 Bologna BO, 40124 Bologna. Contatto: +39 051 039 1939</p>
     <p>Ultimo aggiornamento: maggio 2025.</p>
   </div>
 </div>
-<a href="https://wa.me/390510391939" class="wa" target="_blank">&#x1F4AC;</a>
+<a href="tel:+39 051 039 1939" class="sticky-btn sticky-call" title="Chiama ora">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+  <span>Chiama</span>
+</a>
 </body></html>
